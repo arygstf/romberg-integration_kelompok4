@@ -1,4 +1,9 @@
 # Praktikum 2 - Metode Integrasi Romberg - Kelompok 4
+Proyek ini dibuat sebagai praktikum Komputasi Numerik mengenai Integrasi Romberg oleh tim dengan anggota sebagai berikut:
+- Ary Gustaf Muzaky — 5025251030
+- Aston Justin Holiwono - 5025251035
+- Darwisy Ahmad Alfayyadl - 5025251036
+
 
 ## Metode Integrasi Roomberg
 
@@ -296,12 +301,5 @@ import matplotlib.pyplot as plt
 ## Dokumentasi
 
 
-
-## Kredit
-
-Proyek ini dibuat sebagai praktikum Komputasi Numerik mengenai Integrasi Romberg oleh tim dengan anggota sebagai berikut:
-- Ary Gustaf Muzaky — 5025251030
-- Aston Justin Holiwono - 5025251035
-- Darwisy Ahmad Alfayyadl - 5025251036
 
 

@@ -101,13 +101,13 @@ if st.button("Calculate"):
 
         tabel = romberg(f,a,b,iterasi)
         result = tabel[-1][-1]
-
         st.success(f"Hasil Integral = {result}")
+
         st.subheader("Tabel Romberg")
         df = pd.DataFrame(tabel)
         st.dataframe(df)
-        st.subheader("Grafik Fungsi")
 
+        st.subheader("Grafik Fungsi")
         xs = np.linspace(a, b, 500)
         ys = f(xs)
         ys = np.ones_like(xs) * ys

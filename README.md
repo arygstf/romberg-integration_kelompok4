@@ -1,4 +1,4 @@
-# Praktikum 2 - Metode Integrasi Romberg
+# Praktikum 2 - Metode Integrasi Romberg - Kelompok 4
 
 ## Metode Integrasi Roomberg
 

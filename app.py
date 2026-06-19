@@ -1,3 +1,4 @@
+import re
 from sympy import symbols
 from sympy import sympify
 from sympy import lambdify
@@ -7,13 +8,31 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+def preprocess_fungsi(fungsi: str) -> str:
+    fungsi = fungsi.replace("^", "**")
+    fungsi = re.sub(r'(\d)([a-zA-Z(])', r'\1*\2', fungsi)
+    fungsi = re.sub(r'([a-zA-Z)])(\d)', r'\1*\2', fungsi)
+    fungsi = re.sub(r'\)(\()', r')*\1', fungsi)
+    return fungsi
+
+
 st.title("Integrasi Romberg")
-st.write("Masukkan fungsi: (sin(x), exp(x), sqrt(x), x**2 + 1)")
+st.write("Input fungsi: (sin(x), exp(x), sqrt(x), x**2 + 1)")
 
 fungsi = st.text_input(
     "Fungsi f(x)",
     ""
 )
+
+if fungsi :
+    try:
+        preview = preprocess_fungsi(fungsi)
+        preview = preview.replace("**", "^")
+        st.caption("Preview:")
+        st.latex(preview)
+    except:
+        pass
+
 
 a = st.number_input(
     "Batas Bawah (α)",
@@ -36,7 +55,7 @@ if st.button("Calculate"):
 
     try:
 
-        fungsi = fungsi.replace("^", "**")
+        fungsi = preprocess_fungsi(fungsi)
         x = symbols("x")
         expr = sympify(fungsi)
         f = lambdify(x,expr,modules=["numpy"])
@@ -53,6 +72,7 @@ if st.button("Calculate"):
 
         xs = np.linspace(a, b, 500)
         ys = f(xs)
+        ys = np.ones_like(xs) * ys
      
         fig, ax = plt.subplots()
 

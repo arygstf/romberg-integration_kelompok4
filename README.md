@@ -481,6 +481,8 @@ digunakan untuk menampilkan grafik fungsi (luas/integral)
 ## Dokumentasi
 
 Percobaan dengan menggunakan fungsi `cos(x)` dengan batas bawah 0 dan batas atas π/2
+
+
 <img width="1789" height="1049" alt="Screenshot From 2026-06-19 22-02-02" src="https://github.com/user-attachments/assets/4c123216-288c-4224-8308-7b6183308a11" />
 
 

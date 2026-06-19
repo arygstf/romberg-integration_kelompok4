@@ -46,10 +46,10 @@ Aplikasi ini menggunakan metode numerik Integrasi Romberg untuk menghitung nilai
 
 ### Tujuan dan Fitur Program
 - Memberikan kemudahan bagi pengguna untuk mencari hasil integral tentu dengan memasukkan fungsi beserta batas atas (α) dan batas bawahnya (β)
-- Menampilkan hasil integral, iterasi dari tabel romberg, dan grafik fungsi secara visual
+- Menampilkan hasil integral, iterasi dari tabel Romberg, dan grafik fungsi secara visual
 
 ### Struktur Program
-- `romberg.py` - Program implementasi integrasi romberg
+- `romberg.py` - Program implementasi integrasi Romberg
 - `app.py` - Antarmuka (UI) berbasis web (Streamlit)
 
 
@@ -149,7 +149,7 @@ Digunakan untuk mengisi kolom-kolom berikutnya
 ```Python
 R[i][j] = ( 4**j * R[i][j - 1] - R[i - 1][j - 1]) / (4**j - 1)
 ```
-Perhitungan dengan menggunakan rumus romberg hingga dicapai hasil yang paling akurat
+Perhitungan dengan menggunakan rumus Romberg hingga dicapai hasil yang paling akurat
 
 ```Python
 return R
@@ -172,12 +172,30 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def preprocess_fungsi(fungsi: str) -> str:
     fungsi = fungsi.replace("^", "**")
     fungsi = re.sub(r'(\d)([a-zA-Z(])', r'\1*\2', fungsi)
     fungsi = re.sub(r'([a-zA-Z)])(\d)', r'\1*\2', fungsi)
     fungsi = re.sub(r'\)(\()', r')*\1', fungsi)
     return fungsi
+
+def set_pi_a():   st.session_state["a_input"] = "3.14159265358979"
+def set_pi2_a():  st.session_state["a_input"] = "1.5707963267949"
+def set_pi3_a():  st.session_state["a_input"] = "1.0471975511966"
+def set_pi6_a():  st.session_state["a_input"] = "0.5235987755983"
+def set_pi4_a():  st.session_state["a_input"] = "0.7853981633974"
+
+def set_pi_b():   st.session_state["b_input"] = "3.14159265358979"
+def set_pi2_b():  st.session_state["b_input"] = "1.5707963267949"
+def set_pi3_b():  st.session_state["b_input"] = "1.0471975511966"
+def set_pi6_b():  st.session_state["b_input"] = "0.5235987755983"
+def set_pi4_b():  st.session_state["b_input"] = "0.7853981633974"
+
+def parse_batas(nilai: str) -> float:
+    nilai = nilai.strip().replace("π", "3.14159265358979")
+    nilai = nilai.replace("pi", "3.14159265358979")
+    return float(eval(nilai))
 
 
 st.title("Integrasi Romberg")
@@ -198,15 +216,35 @@ if fungsi :
         pass
 
 
-a = st.number_input(
-    "Batas Bawah (α)",
-    value=1.0
-)
+a_input = st.text_input("Batas Bawah (α)", value="1", key="a_input")
+col1, col2, col3, col4, col5 = st.columns(5)
+with col1:
+    st.button("π",   key="pi_a",  on_click=set_pi_a)
+with col2:
+    st.button("π/2", key="pi2_a", on_click=set_pi2_a)
+with col3:
+    st.button("π/3", key="pi3_a", on_click=set_pi3_a)
+with col4:
+    st.button("π/4", key="pi4_a", on_click=set_pi4_a)
+with col5:
+    st.button("π/6", key="pi6_a", on_click=set_pi6_a)
 
-b = st.number_input(
-    "Batas Atas (β)",
-    value=4.0
-)
+b_input = st.text_input("Batas Atas (β)", value="4", key="b_input")
+col6, col7, col8, col9, col10 = st.columns(5)
+with col6:
+    st.button("π",   key="pi_b",  on_click=set_pi_b)
+with col7:
+    st.button("π/2", key="pi2_b", on_click=set_pi2_b)
+with col8:
+    st.button("π/3", key="pi3_b", on_click=set_pi3_b)
+with col9:
+    st.button("π/4", key="pi4_b", on_click=set_pi4_b)
+with col10:
+    st.button("π/6", key="pi6_b", on_click=set_pi6_b)
+
+a = parse_batas(a_input)
+b = parse_batas(b_input)
+
 
 iterasi = st.slider(
     "Jumlah Iterasi",
@@ -263,12 +301,15 @@ if st.button("Calculate"):
         )
 ```
 
+`import re` merupakan library regex untuk manipulasi string
+
+
 ```Python
 from sympy import symbols
 from sympy import sympify
 from sympy import lambdify
 ```
-> Sympy digunakan untuk membuat varibel simbolik, misalnya `x` menjadi variabel dalam matematika
+Sympy digunakan untuk membuat varibel simbolik, misalnya `x` menjadi variabel dalam matematika
 
 ```Python
 import streamlit as st
@@ -293,13 +334,153 @@ import numpy as np
 ```Python
 import matplotlib.pyplot as plt
 ```
-
 `matplotlib` digunakan untuk membuat grafik dari fungsi
 
+```Python
+def preprocess_fungsi(fungsi: str) -> str:
+    fungsi = fungsi.replace("^", "**")
+    fungsi = re.sub(r'(\d)([a-zA-Z(])', r'\1*\2', fungsi)
+    fungsi = re.sub(r'([a-zA-Z)])(\d)', r'\1*\2', fungsi)
+    fungsi = re.sub(r'\)(\()', r')*\1', fungsi)
+    return fungsi
+```
+Digunakan untuk mengganti format pangkat '^' dan menambahkan tanda kali di antara bilangan dan variabel
 
+```Python
+def set_pi_a():   st.session_state["a_input"] = "3.14159265358979"
+def set_pi2_a():  st.session_state["a_input"] = "1.5707963267949"
+def set_pi3_a():  st.session_state["a_input"] = "1.0471975511966"
+def set_pi6_a():  st.session_state["a_input"] = "0.5235987755983"
+def set_pi4_a():  st.session_state["a_input"] = "0.7853981633974"
+
+def set_pi_b():   st.session_state["b_input"] = "3.14159265358979"
+def set_pi2_b():  st.session_state["b_input"] = "1.5707963267949"
+def set_pi3_b():  st.session_state["b_input"] = "1.0471975511966"
+def set_pi6_b():  st.session_state["b_input"] = "0.5235987755983"
+def set_pi4_b():  st.session_state["b_input"] = "0.7853981633974"
+
+def parse_batas(nilai: str) -> float:
+    nilai = nilai.strip().replace("π", "3.14159265358979")
+    nilai = nilai.replace("pi", "3.14159265358979")
+    return float(eval(nilai))
+```
+Digunakan untuk mendefinisikan masing-masing nilai `π` pada bagian input field
+
+```Python
+st.title("Integrasi Romberg")
+st.write("Input fungsi: (sin(x), exp(x), sqrt(x), x**2 + 1)")
+
+fungsi = st.text_input(
+    "Fungsi f(x)",
+    ""
+)
+```
+Judul pada program serta keterangan untuk contoh input
+
+```Python
+_input = st.text_input("Batas Bawah (α)", value="1", key="a_input")
+col1, col2, col3, col4, col5 = st.columns(5)
+with col1:
+    st.button("π",   key="pi_a",  on_click=set_pi_a)
+with col2:
+    st.button("π/2", key="pi2_a", on_click=set_pi2_a)
+with col3:
+    st.button("π/3", key="pi3_a", on_click=set_pi3_a)
+with col4:
+    st.button("π/4", key="pi4_a", on_click=set_pi4_a)
+with col5:
+    st.button("π/6", key="pi6_a", on_click=set_pi6_a)
+
+b_input = st.text_input("Batas Atas (β)", value="4", key="b_input")
+col6, col7, col8, col9, col10 = st.columns(5)
+with col6:
+    st.button("π",   key="pi_b",  on_click=set_pi_b)
+with col7:
+    st.button("π/2", key="pi2_b", on_click=set_pi2_b)
+with col8:
+    st.button("π/3", key="pi3_b", on_click=set_pi3_b)
+with col9:
+    st.button("π/4", key="pi4_b", on_click=set_pi4_b)
+with col10:
+    st.button("π/6", key="pi6_b", on_click=set_pi6_b)
+
+a = parse_batas(a_input)
+b = parse_batas(b_input)
+```
+Bagian input batas bawah (nilai default = 1) dan batas atas (nilai default = 4) dengan pilihan tombol untuk `π`, `π/2`, `π/3`, `π/4`, dan `π/6`
+
+```Python
+iterasi = st.slider(
+    "Jumlah Iterasi",
+    min_value=1,
+    max_value=40,
+    value=4
+)
+```
+Digunakan untuk menentukan berapa banyak jumlah iterasi untuk proses integrasi fungsi. Nilai minimalnya adalah 1 dan maksimalnya adalah 40
+
+Setelah pengguna meneakan tombol `Calculate`, proses perhitungan dimulai
+
+```Python
+
+        fungsi = preprocess_fungsi(fungsi)
+        x = symbols("x")
+        expr = sympify(fungsi)
+        f = lambdify(x,expr,modules=["numpy"])
+
+```
+
+Fungsi yang diinput akan masuk ke dalam `preprocess_fungsi`, variabel x diinisasi, string diubah menjadi ekspresi sympy dan Python (numpy)
+
+```Python
+tabel = romberg(f,a,b,iterasi)
+        result = tabel[-1][-1]
+        st.success(f"Hasil Integral = {result}")
+```
+`tabel` menyimpan nilai dari integrasi Romberg, dan menyimpannya dalam result (di tabel [-1][-1]) dan menampilkannya di `st.succes`
+
+```Python
+st.subheader("Tabel Romberg")
+        df = pd.DataFrame(tabel)
+        st.dataframe(df)
+```
+digunakan untuk menampilkan tabel Romberg
+
+```Python
+st.subheader("Grafik Fungsi")
+        xs = np.linspace(a, b, 500)
+        ys = f(xs)
+        ys = np.ones_like(xs) * ys
+     
+        fig, ax = plt.subplots()
+
+        ax.plot(xs, ys, label="f(x)")
+
+        ax.fill_between(
+        xs,
+        ys,
+        0,  
+        alpha=0.3,
+        label=f"Integral [{a}, {b}]"
+        )
+
+        ax.set_xlabel("x")
+        ax.set_ylabel("f(x)")
+        ax.grid(True)
+        ax.legend()
+
+        st.pyplot(fig)
+
+    except Exception as e:
+        st.error(
+            f"Error: {e}"
+        )
+```
+digunakan untuk menampilkan grafik fungsi (luas/integral)
 
 ## Dokumentasi
 
-
+Percobaan dengan menggunakan fungsi `cos(x)` dengan batas bawah 0 dan batas atas π/2
+<img width="1550" height="1024" alt="Screenshot From 2026-06-19 21-41-42" src="https://github.com/user-attachments/assets/039a73cb-2e22-4c61-91b1-6a475c5d12ec" />
 
 

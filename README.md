@@ -1,4 +1,4 @@
-# Praktikum 3
+# Praktikum 2 - Metode Integrasi Romberg
 
 ## Metode Integrasi Roomberg
 
@@ -31,22 +31,40 @@ R_{k,m}=R_{k,m-1}+\frac{R_{k,m-1}-R_{k-1,m-1}}{4^{m-1}-1}
 $$
 
 
-## Keterangan:
+### Keterangan:
 - k : indeks baris
 - m : indeks kolom (tingkat ekstrapolasi)
 
 
+##  Deskripsi Program
+Aplikasi ini menggunakan metode numerik Integrasi Romberg untuk menghitung nilai integral tertentu secara lebih akurat dibandingkan metode trapesium biasa. Program dibuat dengan Python dan Streamlit agar hasil perhitungan dapat dilihat melalui antarmuka web yang mudah digunakan.
 
-## Kode Program
+### Tujuan dan Fitur Program
+- Memberikan kemudahan bagi pengguna untuk mencari hasil integral tentu dengan memasukkan fungsi beserta batas atas (α) dan batas bawahnya (β)
+- Menampilkan hasil integral, iterasi dari tabel romberg, dan grafik fungsi secara visual
+
+### Struktur Program
+- `romberg.py` - Program implementasi integrasi romberg
+- `app.py` - Antarmuka (UI) berbasis web (Streamlit)
+
+
+### Prerequisites
+- Python (yang digunakan pada praktikum ini adalah versi 3.14)
+- pip
+- Sistem operasi (Windows / MacOS / Linux)
+
+Dependensi yang digunakan: `streamlit`, `sympy`, `pandas`, `numpy`, `matplotlib`
+
+### Kode Program
 
 ```Python
 
 ```
 
-### Penjelasan Kode
+## Penjelasan Kode
 Kode program ini ditulis dengan menggunakan bahasa Python.
 
-- Untuk `romberg.py` 
+### Untuk `romberg.py` 
 File ini berisi fungsi untuk melakukan integrasi dengan formula romberg
 
 ```Python
@@ -113,7 +131,7 @@ return R
 
 Akan diambil nilai `R` terakhir
 
-- Untuk `app.py`
+### Untuk `app.py`
 
 ```Python
 from sympy import symbols
@@ -150,6 +168,15 @@ import matplotlib.pyplot as plt
 
 
 
-### Dokumentasi
+## Dokumentasi
+
+
+
+## Kredit
+
+Proyek ini dibuat sebagai praktikum Komputasi Numerik mengenai Integrasi Romberg oleh tim dengan anggota sebagai berikut:
+- Ary Gustaf Muzaky — 5025251030
+- Aston Justin Holiwono - 5025251035
+- Darwisy Ahmad Alfayyadl - 5025251036
 
 

@@ -8,12 +8,30 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 
+
 def preprocess_fungsi(fungsi: str) -> str:
     fungsi = fungsi.replace("^", "**")
     fungsi = re.sub(r'(\d)([a-zA-Z(])', r'\1*\2', fungsi)
     fungsi = re.sub(r'([a-zA-Z)])(\d)', r'\1*\2', fungsi)
     fungsi = re.sub(r'\)(\()', r')*\1', fungsi)
     return fungsi
+
+def set_pi_a():   st.session_state["a_input"] = "3.14159265358979"
+def set_pi2_a():  st.session_state["a_input"] = "1.5707963267949"
+def set_pi3_a():  st.session_state["a_input"] = "1.0471975511966"
+def set_pi6_a():  st.session_state["a_input"] = "0.5235987755983"
+def set_pi4_a():  st.session_state["a_input"] = "0.7853981633974"
+
+def set_pi_b():   st.session_state["b_input"] = "3.14159265358979"
+def set_pi2_b():  st.session_state["b_input"] = "1.5707963267949"
+def set_pi3_b():  st.session_state["b_input"] = "1.0471975511966"
+def set_pi6_b():  st.session_state["b_input"] = "0.5235987755983"
+def set_pi4_b():  st.session_state["b_input"] = "0.7853981633974"
+
+def parse_batas(nilai: str) -> float:
+    nilai = nilai.strip().replace("π", "3.14159265358979")
+    nilai = nilai.replace("pi", "3.14159265358979")
+    return float(eval(nilai))
 
 
 st.title("Integrasi Romberg")
@@ -34,15 +52,35 @@ if fungsi :
         pass
 
 
-a = st.number_input(
-    "Batas Bawah (α)",
-    value=1.0
-)
+a_input = st.text_input("Batas Bawah (α)", value="1", key="a_input")
+col1, col2, col3, col4, col5 = st.columns(5)
+with col1:
+    st.button("π",   key="pi_a",  on_click=set_pi_a)
+with col2:
+    st.button("π/2", key="pi2_a", on_click=set_pi2_a)
+with col3:
+    st.button("π/3", key="pi3_a", on_click=set_pi3_a)
+with col4:
+    st.button("π/4", key="pi4_a", on_click=set_pi4_a)
+with col5:
+    st.button("π/6", key="pi6_a", on_click=set_pi6_a)
 
-b = st.number_input(
-    "Batas Atas (β)",
-    value=4.0
-)
+b_input = st.text_input("Batas Atas (β)", value="4", key="b_input")
+col6, col7, col8, col9, col10 = st.columns(5)
+with col6:
+    st.button("π",   key="pi_b",  on_click=set_pi_b)
+with col7:
+    st.button("π/2", key="pi2_b", on_click=set_pi2_b)
+with col8:
+    st.button("π/3", key="pi3_b", on_click=set_pi3_b)
+with col9:
+    st.button("π/4", key="pi4_b", on_click=set_pi4_b)
+with col10:
+    st.button("π/6", key="pi6_b", on_click=set_pi6_b)
+
+a = parse_batas(a_input)
+b = parse_batas(b_input)
+
 
 iterasi = st.slider(
     "Jumlah Iterasi",

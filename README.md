@@ -8,7 +8,7 @@ Proyek ini dibuat sebagai praktikum Komputasi Numerik mengenai Integrasi Romberg
 ## Metode Integrasi Roomberg
 
 ### Pengertian
-Metode integrasi roomberg adalah metode numerik untuk menghitung nilai integral tertentu dengan mengombinasikan aturan trapesium dan ekstrapolasi Richardson. Metode ini menambahkan ukuran langkah pada metode Tujuan utama dari metode ini adalah meningkatkan akurasi hasil integrasi tanpa menggunakan jumlah partisi yang sangat besar.
+Metode integrasi roomberg adalah metode numerik untuk menghitung nilai integral tertentu dengan mengombinasikan aturan trapesium dan ekstrapolasi Richardson. Tujuan utama dari metode ini adalah meningkatkan akurasi hasil integrasi tanpa menggunakan jumlah partisi yang sangat besar.
 
 
 ### Rumus
